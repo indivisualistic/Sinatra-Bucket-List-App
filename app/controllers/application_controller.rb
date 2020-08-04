@@ -13,4 +13,15 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
+  helpers do
+    def logged_in? 
+      !!current_user
+      #true if user is logged in, otherwise false. Use !! to take a value and turns it into boolean reflection of its truthiness.
+    end
+
+    def current_user
+      @current_user ||= User.find_by(:id session[:user_id])
+    end
+  end
+
 end
