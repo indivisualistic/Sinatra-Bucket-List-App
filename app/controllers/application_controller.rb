@@ -10,18 +10,22 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :welcome
+    if logged_in?
+      redirect "/users/#{current_user.id}"
+    else
+      erb :welcome
+    end
   end
 
   helpers do
+    
     def logged_in? 
       !!current_user
       #true if user is logged in, otherwise false. Use !! to take a value and turns it into boolean reflection of its truthiness.
     end
 
-    def current_user
-      @current_user ||= User.find_by(:id session[:user_id])
+  def current_user
+      @current_user ||= User.find_by(id: session[:user_id])
     end
   end
-
 end
