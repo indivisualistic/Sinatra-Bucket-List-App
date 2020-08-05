@@ -7,4 +7,5 @@ require './config/environment'
 #in order to send patch and delete requests, I will need to add a line of code here...
 # use Rack::MethodOverride
 use UsersController
+use BucketFillersController
 run ApplicationController
