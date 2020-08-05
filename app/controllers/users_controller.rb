@@ -16,14 +16,40 @@ post '/login' do
   # erb :welcome
   end
 end
-
+#route get signup is to get users to a signup form. 
 get '/signup' do
+  #erb (render) a view
+  erb :signup
+end
+
+post '/users' do
+  #persist a user that onle has name, email and password
+  if params[:name] != "" && params[:email] != "" && params[:password] !=""
+    @user = User.create(params)
+    session[:user_id] = @user.id
+    
+    redirect "/users/#{@user.id}" 
+    #redirect acually writes in url of request or get request or http request. 
+    #Because we are in a post request redirect sends you url, which usually does not happen in post request. 
+    #ERB is just a rendering of the file. 
+    # erb :'/users/show' 
+  else
+    #include a message if user did something wrong
+    redirect '/signup'
+
+  end
+end
+#Users Show route
+get '/users/:id' do
+  @user = User.find_by(id: params[:id])
+
+  erb :'/users/show'
 
 end
 
-#Users Show route
-get '/users/:id' do
-"This is where user show route is located"
-# erb :welcome
+get '/logout' do
+  session.clear
+  redirect '/'
+
 end
 end
