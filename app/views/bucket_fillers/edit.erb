@@ -1,1 +1,9 @@
-Edit form
+Edit page for bucket fill
+
+<form class="" action="/bucket_fillers/<%= @bucket_filler.id %>" method="patch">
+  <input type="hidden" name="_method" value="patch">
+  <label for="content">Content:</label>
+  <textarea name="content" style="width:auto; height:auto;"><%= @bucket_filler.content%></textarea>
+  <input type="submit" name="" value="Resubmit">
+  </form>
+
