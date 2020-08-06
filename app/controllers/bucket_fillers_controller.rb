@@ -27,16 +27,51 @@ class BucketFillersController < ApplicationController
   end
 
   get '/bucket_fillers/:id' do
-    @bucket_filler = BucketFiller.find(params[:id])
+    set_bucket_filler
     # set_bucket_filler
     erb :'/bucket_fillers/show'
   end
 #This route should send us to bucket fillers/edit.erb
 #This will render an edit form. 
   get '/bucket_fillers/:id/edit' do
-    erb :'/bucket_fillers/edit'
+    set_bucket_filler
+    if logged_in?
+      if @bucket_filler.user == current_user
+        erb :'/bucket_fillers/edit'
+    else
+      redirect "users/#{current_user.id}"
+    end
+    else 
+    redirect '/'
   end
+
+end
+  #This actions job is to find journal entry, modify and redirect to show page of created post. 
+  patch '/bucket_fillers/:id' do
+   set_bucket_filler
+   if logged_in?
+    if @bucket_filler.user == current_user
+    @bucket_filler.update(content: params[:content])
+   redirect "/bucket_fillers/#{@bucket_filler.id}"
+
+  else
+    redirect "users/#{current_user.id}"
+  
+  end
+  else
+    redirect '/'
+  end
+end
+  #creating a helper method privately!
+  private
+
+  def set_bucket_filler
+    @bucket_filler = BucketFiller.find(params[:id])
+  end
+end
   #post request is made in bucket_fillers to create a new list nentry
   #show route for journal entry
   #index a route for all bucket_fillers
-end
+
+
+
