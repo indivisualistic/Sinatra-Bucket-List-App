@@ -31,6 +31,11 @@ class BucketFillersController < ApplicationController
     # set_bucket_filler
     erb :'/bucket_fillers/show'
   end
+#This route should send us to bucket fillers/edit.erb
+#This will render an edit form. 
+  get '/bucket_fillers/:id/edit' do
+    erb :'/bucket_fillers/edit'
+  end
   #post request is made in bucket_fillers to create a new list nentry
   #show route for journal entry
   #index a route for all bucket_fillers
