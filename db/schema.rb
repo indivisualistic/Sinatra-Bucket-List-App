@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2) do
 
   create_table "bucket_fillers", force: :cascade do |t|
-    t.string "bucket_list"
+    t.string "content"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
