@@ -3,5 +3,7 @@ This is where user bucket list will be created and stored.
 <p><%= @bucket_filler.content %></p>
 
 
-
+<% if edit_privileges?(@bucket_filler) %>
 <a href="/bucket_fillers/<%= @bucket_filler.id %>/edit">Edit Bucket</a>
+
+<% end %>
