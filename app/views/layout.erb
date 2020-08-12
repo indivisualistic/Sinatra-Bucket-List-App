@@ -22,6 +22,9 @@
         <a href="/bucket_fillers/new">New Entry</a>
          <% end %>
       </div>
+      <% if flash[:message] %>
+  <h3><%= flash[:message] %></h3>
+  <% end %>
 
 
     <div class="wrapper">
