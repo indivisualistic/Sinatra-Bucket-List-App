@@ -1,3 +1,4 @@
+
 class BucketFillersController < ApplicationController
   
   get '/bucket_fillers' do
@@ -21,12 +22,16 @@ class BucketFillersController < ApplicationController
 #params is a hash
     if params[:content] != ""
       bucket_filler = current_user.bucket_fillers.build(content: params[:content])
+      flash[:message] = "Bucket Filled!"
       if bucket_filler.save
         redirect "/bucket_fillers/#{bucket_filler.id}"
-      
+      else 
+        flash[:message] = "Your Bucket is Empty...Please fill it up!"
+        redirect '/bucket_fillers/new'  
       end
     end
-  redirect '/bucket_fillers/new'
+  
+  
    
     #only create entry if user is logged in. 
     
