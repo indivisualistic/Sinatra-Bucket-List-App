@@ -57,7 +57,7 @@ end
   patch '/bucket_fillers/:id' do
    set_bucket_filler
    if logged_in?
-    if @bucket_filler.user == current_user
+    if @bucket_filler.user == current_user && params[:content] != ""
     @bucket_filler.update(content: params[:content])
    redirect "/bucket_fillers/#{@bucket_filler.id}"
 
@@ -69,6 +69,26 @@ end
     redirect '/'
   end
 end
+
+delete '/bucket_fillers/:id' do
+  set_bucket_filler
+  if edit_privileges?(@bucket_filler)
+    @bucket_filler.destroy
+    redirect '/bucket_fillers'
+    # redirect
+  else
+     # redirect
+     redirect '/bucket_fillers'
+    # go somewhere else -- not deleted
+  end
+end
+    # index route for all bucket entries
+
+
+
+
+
+
   #creating a helper method privately!
   private
 

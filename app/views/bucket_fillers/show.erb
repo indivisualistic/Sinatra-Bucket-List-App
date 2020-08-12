@@ -5,5 +5,10 @@ This is where user bucket list will be created and stored.
 
 <% if edit_privileges?(@bucket_filler) %>
 <a href="/bucket_fillers/<%= @bucket_filler.id %>/edit">Edit Bucket</a>
-
+<br><br>
+<form class="" action="/bucket_fillers/<%= @bucket_filler.id %>" 
+method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" name="" value="Delete this Entry">
+    </form>
 <% end %>
