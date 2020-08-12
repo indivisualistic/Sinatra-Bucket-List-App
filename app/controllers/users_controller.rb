@@ -1,3 +1,5 @@
+require 'sinatra/base'
+
 class UsersController < ApplicationController
   get '/login' do
     erb :login
@@ -10,8 +12,11 @@ post '/login' do
   #log the user in - create user session.
   session[:user_id] = @user.id #this is what actually logs user in.
   puts session
+  # flash[:notice] = "Invalid user input. Please try again."
   redirect "/users/#{@user.id}"
   else
+    flash[:message] = "Invalid user input. Please try again."
+    redirect '/login'
   #tell user they entered invalid credentials...redirect to user landing page.
   # erb :welcome
   end
