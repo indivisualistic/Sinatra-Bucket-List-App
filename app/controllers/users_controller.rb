@@ -50,6 +50,7 @@ end
 #Users Show route
 get '/users/:id' do
   @user = User.find_by(id: params[:id])
+  redirect_if_not_logged_in
 
   erb :'/users/show'
 
