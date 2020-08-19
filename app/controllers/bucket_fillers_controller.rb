@@ -15,14 +15,10 @@ class BucketFillersController < ApplicationController
     #create new journal entry and save it to the database
     #only save entry if there is content added
     redirect_if_not_logged_in
-      redirect '/'
-  
-    
-  
 #params is a hash
     if params[:content] != ""
       flash[:message] = "Bucket Filled!"
-      @bucket_filler = current_user.create(content: params[:content], user_id: current_user.id)
+      @bucket_filler = current_user.bucket_fillers.create(content: params[:content], user_id: current_user.id)
         redirect "/bucket_fillers/#{@bucket_filler.id}"
       else 
         flash[:errors] = "Your Bucket is Empty...Please fill it up!"
