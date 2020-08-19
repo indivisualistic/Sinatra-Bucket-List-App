@@ -21,13 +21,15 @@
         <a href="/bucket_fillers">My Bucket List</a>
         <a href="/bucket_fillers/new">New Entry</a>
          <% end %>
-      </div>
+    
+     </div>
+     <div class="wrapper">
       <% if flash[:message] %>
   <h3><%= flash[:message] %></h3>
   <% end %>
-
-
-    <div class="wrapper">
+    <% if flash[:errors] %>
+    <h3 style="color: red;"><%= flash[:errors] %></h3>
+  <% end %>
 
         <%= yield %>
 
