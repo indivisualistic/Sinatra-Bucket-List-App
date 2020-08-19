@@ -16,7 +16,7 @@ class BucketFillersController < ApplicationController
     #only save entry if there is content added
     redirect_if_not_logged_in
       redirect '/'
-    end
+  
     
   
 #params is a hash
@@ -96,6 +96,7 @@ end
   def set_bucket_filler
     @bucket_filler = BucketFiller.find(params[:id])
   end
+end
 
   #post request is made in bucket_fillers to create a new list nentry
   #show route for journal entry
