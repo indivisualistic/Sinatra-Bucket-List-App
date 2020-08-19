@@ -50,7 +50,11 @@ end
 #Users Show route
 get '/users/:id' do
   @user = User.find_by(id: params[:id])
+  @bucket_fillers = @user.bucket_fillers
   redirect_if_not_logged_in
+  if @user != current_user
+    redirect "/users/#{current_user.id}"
+  end
 
   erb :'/users/show'
 
