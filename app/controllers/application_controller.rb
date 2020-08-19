@@ -32,5 +32,16 @@ class ApplicationController < Sinatra::Base
     def edit_privileges? (bucket_filler)
       bucket_filler.user == current_user
     end
+
+    def redirect_if_not_logged_in
+      if !logged_in? 
+        flash[:errors] = "Please log in to view page"
+        redirect '/'
+      end
+    end
   end
 end
+
+
+  
+

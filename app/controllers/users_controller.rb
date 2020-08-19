@@ -30,9 +30,10 @@ end
 
 post '/users' do
   #persist a user that onle has name, email and password
-  if params[:name] != "" && params[:email] != "" && params[:password] !=""
     @user = User.create(params)
+  if @user.save
     session[:user_id] = @user.id
+    flash[message] = "Account successfully Created, #{@user.name}! Check off that Bucket List!" 
     
     redirect "/users/#{@user.id}" 
     #redirect acually writes in url of request or get request or http request. 
@@ -40,6 +41,7 @@ post '/users' do
     #ERB is just a rendering of the file. 
     # erb :'/users/show' 
   else
+    flash[:errors] = "Failure Creating Account...Please Try Again: #{@user.errors.full_messages.to_sentence}!"
     #include a message if user did something wrong
     redirect '/signup'
 

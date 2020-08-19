@@ -14,7 +14,7 @@ class BucketFillersController < ApplicationController
   post '/bucket_fillers' do
     #create new journal entry and save it to the database
     #only save entry if there is content added
-    if !logged_in?
+    redirect_if_not_logged_in
       redirect '/'
     end
     
@@ -25,7 +25,7 @@ class BucketFillersController < ApplicationController
       @bucket_filler = current_user.create(content: params[:content], user_id: current_user.id)
         redirect "/bucket_fillers/#{@bucket_filler.id}"
       else 
-        flash[:message] = "Your Bucket is Empty...Please fill it up!"
+        flash[:errors] = "Your Bucket is Empty...Please fill it up!"
         redirect '/bucket_fillers/new'  
     end
     end
@@ -46,22 +46,21 @@ class BucketFillersController < ApplicationController
 #This will render an edit form. 
   get '/bucket_fillers/:id/edit' do
     set_bucket_filler
-    if logged_in?
-      if @bucket_filler.user == current_user
+    redirect_if_not_logged_in
+    if @bucket_filler.user == current_user
         erb :'/bucket_fillers/edit'
     else
       redirect "users/#{current_user.id}"
     end
-    else 
-    redirect '/'
+  
   end
 
-end
+
   #This actions job is to find journal entry, modify and redirect to show page of created post. 
   patch '/bucket_fillers/:id' do
    set_bucket_filler
-   if logged_in?
-    if @bucket_filler.user == current_user && params[:content] != ""
+   redirect_if_not_logged_in
+   if @bucket_filler.user == current_user && params[:content] != ""
     @bucket_filler.update(content: params[:content])
    redirect "/bucket_fillers/#{@bucket_filler.id}"
 
@@ -69,15 +68,13 @@ end
     redirect "users/#{current_user.id}"
   
   end
-  else
-    redirect '/'
-  end
 end
 
 delete '/bucket_fillers/:id' do
   set_bucket_filler
   if edit_privileges?(@bucket_filler)
     @bucket_filler.destroy
+    flash[:message] = "Bucket Entry Deleted"
     redirect '/bucket_fillers'
     # redirect
   else
@@ -99,7 +96,7 @@ end
   def set_bucket_filler
     @bucket_filler = BucketFiller.find(params[:id])
   end
-end
+
   #post request is made in bucket_fillers to create a new list nentry
   #show route for journal entry
   #index a route for all bucket_fillers
