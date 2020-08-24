@@ -22,7 +22,7 @@ class ApplicationController < Sinatra::Base
     
     def logged_in? 
       !!current_user
-      #true if user is logged in, otherwise false. Use !! to take a value and turns it into boolean reflection of its truthiness.
+      
     end
 
   def current_user

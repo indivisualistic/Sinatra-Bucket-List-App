@@ -18,9 +18,11 @@
     <div class="nav">
       <% if logged_in? %>
         <a href="/logout">Logout</a>
-        <a href="/bucket_fillers">My Bucket List</a>
+        <a href="/users/<%= current_user.id %> ">My Bucket List</a>
         <a href="/bucket_fillers/new">New Entry</a>
+        <a href="/bucket_fillers">All Bucket Entries</a>
          <% end %>
+
     
      </div>
      <div class="wrapper">

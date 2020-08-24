@@ -3,3 +3,10 @@
 <h3>Email: </h3>
 
 <h4><%= @user.email %></h4>
+
+<% @bucket_fillers.each do |bucket_filler| %>
+<h4><a href="/bucket_fillers/<%= bucket_filler.id %>"><%= bucket_filler.created_at %></a></h4>
+  <p><%= bucket_filler.content %></p>
+  <p><br>From  <%= bucket_filler.user.name %></p>
+  <br><br>
+<% end %>

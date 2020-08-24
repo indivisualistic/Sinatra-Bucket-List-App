@@ -3,5 +3,5 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :email, presence: true
   validates :email, uniqueness: true
-  has_many :bucket_fillers
+  has_many :bucket_fillers, dependent: :destroy
 end
