@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2) do
 
   create_table "bucket_fillers", force: :cascade do |t|
+    t.integer "arrival_date"
     t.string "content"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false

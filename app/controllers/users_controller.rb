@@ -9,7 +9,7 @@ post '/login' do
   @user = User.find_by(email: params[:email])
   
   if @user && @user.authenticate(params[:password])
-  session[:user_id] = @user.id #this is what actually logs user in.
+  session[:user_id] = @user.id 
   puts session
   flash[:message] = "Welcome, #{@user.name}!"
   
