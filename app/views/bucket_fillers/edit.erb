@@ -4,6 +4,10 @@ Edit page for bucket fill
   <input type="hidden" name="_method" value="patch">
   <label for="content">Content:</label>
   <textarea name="content" style="width:auto; height:auto;"><%= @bucket_filler.content%></textarea>
+
+  <input id="completed" type="checkbox"
+  name="completed" <%= @bucket_filler.completed ? "checked" : "" %>> <label for="completed">Completed</label>
+
   <input type="submit" name="" value="Resubmit">
   </form>
 

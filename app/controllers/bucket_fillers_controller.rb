@@ -2,8 +2,17 @@
 class BucketFillersController < ApplicationController
   
   get '/bucket_fillers' do
-    @bucket_fillers = BucketFiller.all
+    
+    if params["order"] == "reverse"
+      @bucket_fillers = BucketFiller.all
+
+    else
+      @bucket_fillers = BucketFiller.all.reverse
+
+    end
+  
     erb :'/bucket_fillers/index'
+  
   end
   
   
@@ -17,7 +26,7 @@ class BucketFillersController < ApplicationController
 
     if params[:content] != ""
       flash[:message] = "Bucket Filled!"
-      @bucket_filler = current_user.bucket_fillers.create(content: params[:content], user_id: current_user.id)
+      @bucket_filler = current_user.bucket_fillers.create(content: params[:content], completed: params[:completed])
         redirect "/bucket_fillers/#{@bucket_filler.id}"
       else 
         flash[:errors] = "Your Bucket is Empty...Please fill it up!"
@@ -49,7 +58,7 @@ class BucketFillersController < ApplicationController
    set_bucket_filler
    redirect_if_not_logged_in
    if @bucket_filler.user == current_user && params[:content] != ""
-    @bucket_filler.update(content: params[:content])
+    @bucket_filler.update(content: params[:content], completed: params[:completed])
    redirect "/bucket_fillers/#{@bucket_filler.id}"
 
   else

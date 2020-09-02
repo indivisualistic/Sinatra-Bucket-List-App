@@ -1,7 +1,14 @@
-This is where you can see information about a bucket_filler
+
 
 <p><%= @bucket_filler.content %></p>
+<% if @bucket_filler.completed %>
 
+<p> Bucket Filler Checked Off! </p>
+
+<% else %>
+<p> Please Check Bucket! </p>
+
+<% end %>
 
 <% if edit_privileges?(@bucket_filler) %>
 <a href="/bucket_fillers/<%= @bucket_filler.id %>/edit">Edit Bucket</a>

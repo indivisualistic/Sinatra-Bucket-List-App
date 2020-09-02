@@ -29,7 +29,7 @@ post '/users' do
     @user = User.create(params)
   if @user.save
     session[:user_id] = @user.id
-    flash[message] = "Account successfully Created, #{@user.name}! Check off that Bucket List!" 
+    flash[:message] = "Account successfully Created, #{@user.name}! Check off that Bucket List!" 
     
     redirect "/users/#{@user.id}" 
 
